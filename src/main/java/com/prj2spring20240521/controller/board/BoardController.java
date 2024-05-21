@@ -49,7 +49,12 @@ public class BoardController {
     }
 
     @PutMapping("edit")
-    public void edit(@RequestBody Board board) {
-        service.edit(board);
+    public ResponseEntity edit(@RequestBody Board board) {
+        if (service.validate(board)) {
+            service.edit(board);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
