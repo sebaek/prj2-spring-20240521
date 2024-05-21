@@ -29,4 +29,11 @@ public class BoardController {
     public List<Board> list() {
         return service.list();
     }
+
+    // /api/board/5
+    // /api/board/6
+    @GetMapping("{id}")
+    public Board get(@PathVariable Integer id) {
+        return service.get(id);
+    }
 }
