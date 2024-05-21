@@ -42,4 +42,9 @@ public class BoardController {
 
         return ResponseEntity.ok().body(board);
     }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Integer id) {
+        service.remove(id);
+    }
 }
