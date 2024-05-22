@@ -19,16 +19,16 @@ public class MemberService {
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         member.setEmail(member.getEmail().trim());
         member.setNickName(member.getNickName().trim());
-        
+
         mapper.insert(member);
     }
 
     public Member getByEmail(String email) {
-        return mapper.selectByEmail(email);
+        return mapper.selectByEmail(email.trim());
     }
 
     public Member getByNickName(String nickName) {
-        return mapper.selectByNickName(nickName);
+        return mapper.selectByNickName(nickName.trim());
     }
 
     public boolean validate(Member member) {
