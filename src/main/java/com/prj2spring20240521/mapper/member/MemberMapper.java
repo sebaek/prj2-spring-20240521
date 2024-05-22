@@ -1,6 +1,7 @@
 package com.prj2spring20240521.mapper.member;
 
 import com.prj2spring20240521.domain.member.Member;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -49,4 +50,10 @@ public interface MemberMapper {
             WHERE id = #{id}
             """)
     Member selectById(Integer id);
+
+    @Delete("""
+            DELETE FROM member
+            WHERE id = #{id}
+            """)
+    int deleteById(Integer id);
 }
