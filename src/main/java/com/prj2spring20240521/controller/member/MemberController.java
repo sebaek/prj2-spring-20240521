@@ -20,7 +20,6 @@ public class MemberController {
 
     @GetMapping(value = "check", params = "email")
     public ResponseEntity checkEmail(@RequestParam("email") String email) {
-        System.out.println("email = " + email);
         Member member = service.getByEmail(email);
         if (member == null) {
             return ResponseEntity.notFound().build();
@@ -29,7 +28,11 @@ public class MemberController {
     }
 
     @GetMapping(value = "check", params = "nickName")
-    public void checkNickName(@RequestParam("nickName") String nickName) {
-        System.out.println("nickName = " + nickName);
+    public ResponseEntity checkNickName(@RequestParam("nickName") String nickName) {
+        Member member = service.getByNickName(nickName);
+        if (member == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(nickName);
     }
 }
