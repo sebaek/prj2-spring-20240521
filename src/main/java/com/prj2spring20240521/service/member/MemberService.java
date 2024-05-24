@@ -163,6 +163,12 @@ public class MemberService {
     }
 
     public boolean hasAccess(Integer id, Authentication authentication) {
-        return authentication.getName().equals(id.toString());
+        boolean self = authentication.getName().equals(id.toString());
+
+        boolean isAdmin = authentication.getAuthorities()
+                .stream()
+                .anyMatch(a -> a.getAuthority().equals("SCOPE_admin"));
+
+        return self || isAdmin;
     }
 }
