@@ -34,8 +34,10 @@ public class BoardService {
         return true;
     }
 
-    public List<Board> list() {
-        return mapper.selectAll();
+    public List<Board> list(Integer page) {
+        Integer offset = (page - 1) * 10;
+        
+        return mapper.selectAllPaging(offset);
     }
 
     public Board get(Integer id) {
