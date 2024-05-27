@@ -44,10 +44,16 @@ public class BoardService {
         Integer leftPageNumber = (page - 1) / 10 * 10 + 1;
         Integer rightPageNumber = leftPageNumber + 9;
         rightPageNumber = Math.min(rightPageNumber, lastPageNumber);
-        
+        Integer prevPageNumber = leftPageNumber - 1;
+        Integer nextPageNumber = rightPageNumber + 1;
 
         //  이전,처음,다음,맨끝 버튼 만들기
-
+        if (prevPageNumber > 0) {
+            pageInfo.put("prevPageNumber", prevPageNumber);
+        }
+        if (nextPageNumber <= lastPageNumber) {
+            pageInfo.put("nextPageNumber", nextPageNumber);
+        }
         pageInfo.put("currentPageNumber", page);
         pageInfo.put("lastPageNumber", lastPageNumber);
         pageInfo.put("leftPageNumber", leftPageNumber);
