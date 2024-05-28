@@ -75,14 +75,14 @@ public class BoardController {
                                List<String> removeFileList,
                                @RequestParam(value = "addFileList[]", required = false)
                                MultipartFile[] addFileList,
-                               Authentication authentication) {
+                               Authentication authentication) throws IOException {
 
         if (!service.hasAccess(board.getId(), authentication)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
         if (service.validate(board)) {
-            service.edit(board, removeFileList);
+            service.edit(board, removeFileList, addFileList);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
