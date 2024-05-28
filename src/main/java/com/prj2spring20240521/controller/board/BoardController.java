@@ -73,6 +73,8 @@ public class BoardController {
     public ResponseEntity edit(Board board,
                                @RequestParam(value = "removeFileList[]", required = false)
                                List<String> removeFileList,
+                               @RequestParam(value = "addFileList[]", required = false)
+                               MultipartFile[] addFileList,
                                Authentication authentication) {
 
         if (!service.hasAccess(board.getId(), authentication)) {
