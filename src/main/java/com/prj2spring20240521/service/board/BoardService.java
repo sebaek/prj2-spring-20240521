@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,19 +21,29 @@ public class BoardService {
     private final BoardMapper mapper;
     private final MemberMapper memberMapper;
 
-    public void add(Board board, MultipartFile[] files, Authentication authentication) {
+    public void add(Board board, MultipartFile[] files, Authentication authentication) throws IOException {
         board.setMemberId(Integer.valueOf(authentication.getName()));
         // 게시물 저장
         mapper.insert(board);
 
-        // db에 해당 게시물의 파일 목록 저장
         if (files != null) {
             for (MultipartFile file : files) {
+                // db에 해당 게시물의 파일 목록 저장
                 mapper.insertFileName(board.getId(), file.getOriginalFilename());
+                // 실제 파일 저장
+                // 부모 디렉토리 만들기
+                String dir = STR."C:/Temp/prj2/\{board.getId()}";
+                File dirFile = new File(dir);
+                if (!dirFile.exists()) {
+                    dirFile.mkdirs();
+                }
+
+                // 파일 경로
+                String path = STR."C:/Temp/prj2/\{board.getId()}/\{file.getOriginalFilename()}";
+                File destination = new File(path);
+                file.transferTo(destination);
             }
         }
-
-        // 실제 파일 저장
 
 
     }
