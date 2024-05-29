@@ -130,3 +130,6 @@ CREATE TABLE board_like
     member_id INT NOT NULL REFERENCES member (id),
     PRIMARY KEY (board_id, member_id)
 );
+
+SELECT *
+FROM board_like;
