@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -120,15 +121,15 @@ public class BoardService {
         // file 명 조회
         List<String> fileNames = mapper.selectFileNameByBoardId(id);
 
-        // disk 에 있는 file
-        String dir = STR."C:/Temp/prj2/\{id}/";
+        // s3 에 있는 file
         for (String fileName : fileNames) {
-            File file = new File(dir + fileName);
-            file.delete();
-        }
-        File dirFile = new File(dir);
-        if (dirFile.exists()) {
-            dirFile.delete();
+            String key = STR."prj2/\{id}/\{fileName}";
+            DeleteObjectRequest objectRequest = DeleteObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .build();
+
+            s3Client.deleteObject(objectRequest);
         }
 
         // board_file
