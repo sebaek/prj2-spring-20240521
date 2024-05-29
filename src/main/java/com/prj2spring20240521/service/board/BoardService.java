@@ -32,6 +32,9 @@ public class BoardService {
     @Value("${aws.s3.bucket.name}")
     String bucketName;
 
+    @Value("${image.src.prefix}")
+    String srcPrefix;
+
     public void add(Board board, MultipartFile[] files, Authentication authentication) throws IOException {
         board.setMemberId(Integer.valueOf(authentication.getName()));
         // 게시물 저장
@@ -103,9 +106,9 @@ public class BoardService {
     public Board get(Integer id) {
         Board board = mapper.selectById(id);
         List<String> fileNames = mapper.selectFileNameByBoardId(id);
-        // http://172.30.1.57:8888/{id}/{name}
+        // 버킷객체URL/{id}/{name}
         List<BoardFile> files = fileNames.stream()
-                .map(name -> new BoardFile(name, STR."http://172.30.1.57:8888/\{id}/\{name}"))
+                .map(name -> new BoardFile(name, STR."\{srcPrefix}\{id}/\{name}"))
                 .toList();
 
         board.setFileList(files);
