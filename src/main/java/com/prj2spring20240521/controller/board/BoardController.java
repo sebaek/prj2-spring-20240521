@@ -47,14 +47,15 @@ public class BoardController {
     // /api/board/5
     // /api/board/6
     @GetMapping("{id}")
-    public ResponseEntity get(@PathVariable Integer id) {
-        Board board = service.get(id);
+    public ResponseEntity get(@PathVariable Integer id
+            , Authentication authentication) {
+        Map<String, Object> result = service.get(id, authentication);
 
-        if (board == null) {
+        if (result.get("board") == null) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(board);
+        return ResponseEntity.ok().body(result);
     }
 
     @DeleteMapping("{id}")
