@@ -23,6 +23,7 @@ public class BoardService {
     private final BoardMapper mapper;
     private final MemberMapper memberMapper;
 
+
     public void add(Board board, MultipartFile[] files, Authentication authentication) throws IOException {
         board.setMemberId(Integer.valueOf(authentication.getName()));
         // 게시물 저장
