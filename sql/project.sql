@@ -140,8 +140,18 @@ FROM board b
          LEFT JOIN board_file f ON b.id = f.board_id
          LEFT JOIN board_like l ON b.id = l.board_id
 WHERE b.id = 5;
-
-
+DESC board;
+# 댓글 테이블
+CREATE TABLE comment
+(
+    id        INT PRIMARY KEY AUTO_INCREMENT,
+    board_id  INT          NOT NULL REFERENCES board (id),
+    member_id INT          NOT NULL REFERENCES member (id),
+    comment   VARCHAR(500) NOT NULL,
+    inserted  DATETIME     NOT NULL DEFAULT NOW()
+);
+SELECT *
+FROM comment;
 
 
 
