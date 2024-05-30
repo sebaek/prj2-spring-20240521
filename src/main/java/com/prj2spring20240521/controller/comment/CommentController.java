@@ -38,7 +38,7 @@ public class CommentController {
     }
 
     @DeleteMapping("remove")
-    public void remove(Comment comment) {
+    public void remove(@RequestBody Comment comment) {
         service.remove(comment);
     }
 }
