@@ -151,7 +151,8 @@ CREATE TABLE comment
     inserted  DATETIME     NOT NULL DEFAULT NOW()
 );
 SELECT *
-FROM comment;
+FROM comment
+WHERE board_id = 5;
 
 
 
