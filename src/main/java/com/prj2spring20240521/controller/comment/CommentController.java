@@ -23,7 +23,7 @@ public class CommentController {
 
         if (service.validate(comment)) {
             service.add(comment, authentication);
-            
+
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();
@@ -35,5 +35,10 @@ public class CommentController {
     public List<Comment> list(@PathVariable Integer boardId) {
 
         return service.list(boardId);
+    }
+
+    @DeleteMapping("remove")
+    public void remove(Comment comment) {
+        service.remove(comment);
     }
 }
