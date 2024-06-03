@@ -14,8 +14,6 @@ mv ../prj2-react-20240521/dist src/main/resources/static
 scp -i src/main/resources/secret/key0527.pem build/libs/prj2-spring-20240521-0.0.1-SNAPSHOT.jar ubuntu@13.209.74.178:~/prj2/build/libs/.
 
 # remote 에서
-#ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'chmod +x ~/prj2/remote.sh'
-#ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'bash ~/prj2/remote.sh'
 
 # 이미 실행된 컨테이너 멈추고
 ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'docker stop my-prj2'
