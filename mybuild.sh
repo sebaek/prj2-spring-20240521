@@ -10,16 +10,19 @@ mv ../prj2-react-20240521/dist src/main/resources/static
 # spring project build
 ./gradlew bootJar
 
-# build/libs/prj.jar -> ec2 에 복사
-scp -i src/main/resources/secret/key0527.pem build/libs/prj2-spring-20240521-0.0.1-SNAPSHOT.jar ubuntu@13.209.74.178:~/prj2/build/libs/.
+# build image
+docker build -t sebaek/prj3 .
+
+# push image
+docker push sebaek/prj3
 
 # remote 에서
 
-# 이미 실행된 컨테이너 멈추고
-ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'docker stop my-prj2'
+# 컨테이너 멈추고
+ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'docker stop prj3'
 # 컨테이너 삭제
-ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'docker rm my-prj2'
-# docker image 만들고
-ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'docker build -t my-prj2 ~/prj2/.'
+ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'docker rm prj3'
+# pull image
+ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'docker pull sebaek/prj3'
 # 컨테이너 실행
-ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'docker run -d -p 8080:8080 --restart always --name my-prj2 my-prj2'
+ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.74.178 'docker run -d -p 8080:8080 --restart always --name prj3 sebaek/prj3'
