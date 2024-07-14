@@ -19,10 +19,12 @@ docker push sebaek/prj3
 # remote 에서
 
 # 컨테이너 멈추고
-ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.66.10 'docker stop prj3'
+ssh -i src/main/resources/secret/key0527.pem ubuntu@3.35.234.109 'docker stop prj3'
 # 컨테이너 삭제
-ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.66.10 'docker rm prj3'
+ssh -i src/main/resources/secret/key0527.pem ubuntu@3.35.234.109 'docker rm prj3'
 # pull image
-ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.66.10 'docker pull sebaek/prj3'
+ssh -i src/main/resources/secret/key0527.pem ubuntu@3.35.234.109 'docker pull sebaek/prj3'
 # 컨테이너 실행
-ssh -i src/main/resources/secret/key0527.pem ubuntu@13.209.66.10 'docker run -d -p 8080:8080 --restart always --name prj3 sebaek/prj3'
+ssh -i src/main/resources/secret/key0527.pem ubuntu@3.35.234.109 'docker run -d -p 8080:8080 --restart always --name prj3 sebaek/prj3'
+# 필요없는 이미지 삭제
+ssh -i src/main/resources/secret/key0527.pem ubuntu@3.35.234.109 'docker image prune -f'
